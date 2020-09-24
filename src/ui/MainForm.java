@@ -76,7 +76,7 @@ public class MainForm extends JFrame {
             public void valueChanged(ListSelectionEvent e) {
                 if(e.getValueIsAdjusting()) {
 
-                    if(tableContacts.getSelectedRow() != -1){
+                    if(tableContacts.getSelectedRow() != -1) {
                         mName = tableContacts.getValueAt(tableContacts.getSelectedRow(), 0).toString();
                         mPhone = tableContacts.getValueAt(tableContacts.getSelectedRow(), 1).toString();
                     }
@@ -86,8 +86,17 @@ public class MainForm extends JFrame {
 
         buttonRemove.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                mContactBusiness.delete(mName, mPhone);
+            public void actionPerformed(ActionEvent e) {
+                try{
+                    mContactBusiness.delete(mName, mPhone);
+                    loadContacts();
+
+                    mName = "";
+                    mPhone = "";
+                }
+                catch (Exception excp) {
+                    JOptionPane.showMessageDialog(new JFrame(), excp.getMessage());
+                }
             }
         });
     }
